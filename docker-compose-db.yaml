@@ -1,0 +1,19 @@
+# Docker compose: https://docs.docker.com/compose/  YAML: https://yaml.org/spec/1.2.2/
+name: db_project
+
+services:
+  mariadb_service:
+    image: mariadb:11.1.2-jammy    # OR:   mariadb:latest
+    container_name: mariadb_container
+    env_file:
+      - .env.db
+      - .env.db.root
+      - .env.network
+    ports:
+      - '${DB_PORT}:3306'
+    volumes:
+      - ./Database/SQL_Scripts/000__CreateALLdb.sql:/docker-entrypoint-initdb.d/init.sql
+      - mariadb_volume:/var/lib/mysql
+
+volumes:
+  mariadb_volume:

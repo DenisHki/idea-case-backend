@@ -1,0 +1,44 @@
+# Docker compose: https://docs.docker.com/compose/  YAML: https://yaml.org/spec/1.2.2/
+name: dbbe_project
+
+services:
+  siba_db_service:
+    image: mariadb:latest
+    container_name: siba_db_container
+    env_file:
+      - .env.db
+      - .env.db.root
+      - .env.network
+    ports:
+      - '${DB_PORT}:3306'
+    volumes:
+      - ./Database/SQL_Scripts/000__CreateALLdb.sql:/docker-entrypoint-initdb.d/init.sql
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - db_be_network
+
+  siba_be_service:
+    container_name: siba_be_container
+    build: .
+    env_file: 
+     - .env.be
+     - .env.db
+     - .env.network
+    depends_on:
+      - siba_db_deployment
+    environment:
+      - DB_HOST=siba_db_deployment
+    ports:
+      - '${BE_SERVER_PORT}:${BE_SERVER_PORT}'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - db_be_network
+
+networks:
+  db_be_network:
+    driver: bridge
+
+volumes:
+  mariadb_volume:

@@ -1,0 +1,12 @@
+services:
+  siba_be:
+    build: .
+    container_name: siba_be
+    env_file: 
+     - .env.be
+     - .env.db
+     - .env.network
+    environment:
+      - DB_HOST=host.docker.internal
+    ports:
+      - '${BE_SERVER_PORT}:${BE_SERVER_PORT}'
