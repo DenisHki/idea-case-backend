@@ -29,6 +29,8 @@ DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS GlobalSetting;
 
+DROP TABLE IF EXISTS Category;
+
 /* ---------------------------------------------------------- */
 /* ---------------------------------------------------------- */
 /* -------------------------- END --------------------------- */
@@ -38,6 +40,17 @@ DROP TABLE IF EXISTS GlobalSetting;
 USE casedb; /* UPDATED 2024-01-24 */
 
 /* --- 01 CREATE TABLES --- */
+
+CREATE TABLE IF NOT EXISTS Category (
+    id              INTEGER                 NOT NULL AUTO_INCREMENT,
+    name            VARCHAR(255)            NOT NULL UNIQUE,
+    description     VARCHAR(255),
+    budgetLimit     DECIMAL(19, 4)         NOT NULL DEFAULT 0,
+    isActive        BOOLEAN                  NOT NULL DEFAULT TRUE,
+
+    PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE IF NOT EXISTS GlobalSetting (
     id              INTEGER                     NOT NULL AUTO_INCREMENT,
@@ -383,6 +396,14 @@ CREATE TABLE IF NOT EXISTS log_event (
 USE casedb; /* UPDATED 2024-02-26 */
 
 /* INSERTS */
+/* --- Insert: Category --- */
+INSERT INTO Category(name, description, budgetLimit, isActive) VALUES
+    ('Music', 'A category related to all forms of music', 1000.00, TRUE),
+    ('Art', 'A category for various art forms', 500.00, TRUE),
+    ('Technology', 'A category focused on technological advancements', 2000.00, TRUE),
+    ('Education', 'A category that includes educational resources', 1500.00, TRUE),
+    ('Health', 'A category dedicated to health and wellness', 750.00, FALSE);
+
 /* --- Insert: GlobalSettings --- */
 INSERT INTO GlobalSetting(variable, description, numberValue, textValue) VALUES
     ('highPriority', 'High priority value', 800, NULL),

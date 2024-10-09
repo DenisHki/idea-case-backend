@@ -29,6 +29,8 @@ DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS GlobalSetting;
 
+DROP TABLE IF EXISTS Category; 
+
 /* ---------------------------------------------------------- */
 /* ---------------------------------------------------------- */
 /* -------------------------- END --------------------------- */
@@ -36,6 +38,8 @@ DROP TABLE IF EXISTS GlobalSetting;
 /* ---------------------------------------------------------- */
 
 USE casedb; /* UPDATED 2023-11-05 */
+
+
 
 /* PROCEDURES */
 DROP PROCEDURE IF EXISTS abortAllocation;
@@ -60,6 +64,19 @@ DROP FUNCTION IF EXISTS getMissingItemAmount;
 USE casedb; /* UPDATED 2024-01-24 */
 
 /* --- 01 CREATE TABLES --- */
+
+/* CREATE Category TABLE */
+CREATE TABLE IF NOT EXISTS Category (
+    id              INTEGER                 NOT NULL AUTO_INCREMENT,
+    name            VARCHAR(255)            NOT NULL UNIQUE,
+    description     VARCHAR(255),
+    budgetLimit     DECIMAL(19, 4)         NOT NULL DEFAULT 0,
+    isActive        BOOLEAN                  NOT NULL DEFAULT TRUE,
+
+    PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
 
 CREATE TABLE IF NOT EXISTS GlobalSetting (
     id              INTEGER                     NOT NULL AUTO_INCREMENT,

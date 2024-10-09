@@ -1,5 +1,8 @@
 USE casedb; /* UPDATED 2023-11-21 */
 
+DELETE FROM Category;
+ALTER TABLE Category AUTO_INCREMENT=1;
+
 DELETE FROM AllocCurrentRoundUser;
 DELETE FROM AllocSpace;
 DELETE FROM AllocSubjectSuitableSpace;
