@@ -1,33 +1,29 @@
 # Docker compose: https://docs.docker.com/compose/  YAML: https://yaml.org/spec/1.2.2/
-name: dbbe_project
+name: dbbe_project_new
 
 services:
   siba_db_service:
     image: mariadb:latest
-    container_name: siba_db_container
+    container_name: siba_db_container_new
     env_file:
-      - .env.db
-      - .env.db.root
-      - .env.network
+      - .env
     ports:
       - '${DB_PORT}:3306'
     volumes:
       - ./Database/SQL_Scripts/000__CreateALLdb.sql:/docker-entrypoint-initdb.d/init.sql
-      - mariadb_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql  # Leave as mariadb_data
     networks:
       - db_be_network
 
   siba_be_service:
-    container_name: siba_be_container
+    container_name: siba_be_container_new
     build: .
     env_file: 
-     - .env.be
-     - .env.db
-     - .env.network
+     - .env
     depends_on:
-      - siba_db_deployment
+      - siba_db_service  # Fixed the typo here
     environment:
-      - DB_HOST=siba_db_deployment
+      - DB_HOST=siba_db_service  # Fixed to match the correct service name
     ports:
       - '${BE_SERVER_PORT}:${BE_SERVER_PORT}'
     volumes:
@@ -41,4 +37,4 @@ networks:
     driver: bridge
 
 volumes:
-  mariadb_volume:
+  mariadb_data:  # Change to mariadb_data for consistency

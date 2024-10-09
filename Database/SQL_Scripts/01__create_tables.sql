@@ -2,6 +2,8 @@ USE casedb; /* UPDATED 2024-01-24 */
 
 /* --- 01 CREATE TABLES --- */
 
+
+
 CREATE TABLE IF NOT EXISTS GlobalSetting (
     id              INTEGER                     NOT NULL AUTO_INCREMENT,
     variable            VARCHAR(255)   UNIQUE       NOT NULL,
