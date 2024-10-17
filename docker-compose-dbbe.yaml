@@ -11,7 +11,7 @@ services:
       - '${DB_PORT}:3306'
     volumes:
       - ./Database/SQL_Scripts/000__CreateALLdb.sql:/docker-entrypoint-initdb.d/init.sql
-      - mariadb_data:/var/lib/mysql  # Leave as mariadb_data
+      - mariadb_data:/var/lib/mysql  
     networks:
       - db_be_network
 
@@ -21,9 +21,9 @@ services:
     env_file: 
      - .env
     depends_on:
-      - siba_db_service  # Fixed the typo here
+      - siba_db_service  
     environment:
-      - DB_HOST=siba_db_service  # Fixed to match the correct service name
+      - DB_HOST=siba_db_service  
     ports:
       - '${BE_SERVER_PORT}:${BE_SERVER_PORT}'
     volumes:
@@ -37,4 +37,4 @@ networks:
     driver: bridge
 
 volumes:
-  mariadb_data:  # Change to mariadb_data for consistency
+  mariadb_data:  
