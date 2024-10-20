@@ -5,3 +5,7 @@ Authorization: Basic <put your token here>
 ###
 DELETE http://localhost:8764/api/space/<put space id here>
 Authorization: Basic <put your token here>
+
+### 
+DELETE http://localhost:8764/api/category/<put category id here>
+Authorization: Basic <put your token here>

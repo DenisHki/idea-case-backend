@@ -34,3 +34,16 @@ Content-Type: application/json
   "inUse": true,
   "spaceTypeId": 5001
 }
+
+###
+PUT http://localhost:8764/api/category
+Authorization: Basic <put your token here>
+Content-Type: application/json
+
+{
+    "id": 7,
+    "name": "TestUpdated",
+    "description": "Updated Test description",
+    "budgetLimit": 750,
+    "isActive": true
+}

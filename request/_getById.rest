@@ -1,3 +1,7 @@
 // Example of making get request by id
 GET http://localhost:8764/api/program/<put program id here>
 Authorization: Basic <put your token here>
+
+###
+GET http://localhost:8764/api/category/<put category id here>
+Authorization: Basic <put your token here>

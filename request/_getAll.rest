@@ -1,4 +1,7 @@
 // Examples of fetching all data from the apis
+GET http://localhost:8764/api/category
+Authorization: Basic <put your token here>
+###
 GET http://localhost:8764/api/allocRound
 Authorization: Basic <put your token here>
 ###
