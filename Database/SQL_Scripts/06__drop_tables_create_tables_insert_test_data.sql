@@ -396,6 +396,7 @@ CREATE TABLE IF NOT EXISTS log_event (
 USE casedb; /* UPDATED 2024-02-26 */
 
 /* INSERTS */
+
 /* --- Insert: Category --- */
 INSERT INTO Category(name, description, budgetLimit, isActive) VALUES
     ('Music', 'A category related to all forms of music', 1000.00, TRUE),

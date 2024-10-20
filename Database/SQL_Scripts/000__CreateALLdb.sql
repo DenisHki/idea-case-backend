@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS GlobalSetting;
 
-DROP TABLE IF EXISTS Category; 
+DROP TABLE IF EXISTS Category;
 
 /* ---------------------------------------------------------- */
 /* ---------------------------------------------------------- */
@@ -38,8 +38,6 @@ DROP TABLE IF EXISTS Category;
 /* ---------------------------------------------------------- */
 
 USE casedb; /* UPDATED 2023-11-05 */
-
-
 
 /* PROCEDURES */
 DROP PROCEDURE IF EXISTS abortAllocation;
@@ -65,7 +63,6 @@ USE casedb; /* UPDATED 2024-01-24 */
 
 /* --- 01 CREATE TABLES --- */
 
-/* CREATE Category TABLE */
 CREATE TABLE IF NOT EXISTS Category (
     id              INTEGER                 NOT NULL AUTO_INCREMENT,
     name            VARCHAR(255)            NOT NULL UNIQUE,
@@ -75,7 +72,6 @@ CREATE TABLE IF NOT EXISTS Category (
 
     PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
 
 
 CREATE TABLE IF NOT EXISTS GlobalSetting (
@@ -931,7 +927,7 @@ INSERT INTO Category(name, description, budgetLimit, isActive) VALUES
     ('Technology', 'A category focused on technological advancements', 2000.00, TRUE),
     ('Education', 'A category that includes educational resources', 1500.00, TRUE),
     ('Health', 'A category dedicated to health and wellness', 750.00, FALSE);
-    
+
 /* --- Insert: GlobalSettings --- */
 INSERT INTO GlobalSetting(variable, description, numberValue, textValue) VALUES
     ('highPriority', 'High priority value', 800, NULL),
