@@ -124,4 +124,61 @@ city.delete('/:id', (req: Request, res: Response) => {
     });
 });
 
+// get city with "burg" in their name
+city.get('/search/burg', (req: Request, res: Response) => {
+  db_knex('City')
+    .select('id', 'name', 'established', 'averageTemp')
+    .where('name', 'like', '%burg%')
+    .orderBy('name', 'asc')
+    .then((data) => {
+      successHandler(
+        req,
+        res,
+        data,
+        "Cities containing 'burg' retrieved successfully.",
+      );
+    })
+    .catch((err) => {
+      requestErrorHandler(req, res, `${err} Oops! Could not retrieve cities.`);
+    });
+});
+
+// get cities matching search text
+city.post('/search', (req: Request, res: Response) => {
+  db_knex('City')
+    .select('id', 'name', 'established', 'averageTemp')
+    .where('name', 'like', `%${req.body.searchText}%`)
+    .orderBy('name', 'asc')
+    .then((data) => {
+      successHandler(
+        req,
+        res,
+        data,
+        'Cities matching search text retrieved successfully.',
+      );
+    })
+    .catch((err) => {
+      requestErrorHandler(req, res, `${err} Oops! Could not retrieve cities.`);
+    });
+});
+
+// get cities established before a certain date
+city.post('/established-before', (req: Request, res: Response) => {
+  db_knex('City')
+    .select('id', 'name', 'established', 'averageTemp')
+    .where('established', '<', req.body.established)
+    .orderBy('established', 'asc')
+    .then((data) => {
+      successHandler(
+        req,
+        res,
+        data,
+        'Cities established before the specified date retrieved successfully.',
+      );
+    })
+    .catch((err) => {
+      requestErrorHandler(req, res, `${err} Oops! Could not retrieve cities.`);
+    });
+});
+
 export default city;
