@@ -1,7 +1,7 @@
 services:
   siba_be:
     build: .
-    container_name: siba_be_new
+    container_name: siba_be
     env_file: 
      - .env
     environment:

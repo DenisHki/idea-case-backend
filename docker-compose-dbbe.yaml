@@ -1,10 +1,10 @@
 # Docker compose: https://docs.docker.com/compose/  YAML: https://yaml.org/spec/1.2.2/
-name: dbbe_project_new
+name: dbbe_project
 
 services:
   siba_db_service:
     image: mariadb:latest
-    container_name: siba_db_container_new
+    container_name: siba_db_container
     env_file:
       - .env
     ports:
@@ -16,7 +16,7 @@ services:
       - db_be_network
 
   siba_be_service:
-    container_name: siba_be_container_new
+    container_name: siba_be_container
     build: .
     env_file: 
      - .env

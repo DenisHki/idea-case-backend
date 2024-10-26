@@ -19,7 +19,7 @@ export const authenticator = (
   // Taking the leading 'Bearer' and space ' ' out
   const token = authHeader?.split(' ')[1];
 
-  if (token == null) {
+  if (!token) {
     logger.error(`Token: ${token}`);
     authenticationErrorHandler(req, res, 'Login TOKEN not found in headers');
     return;

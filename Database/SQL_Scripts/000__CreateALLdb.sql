@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS GlobalSetting;
 
 DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS City;
 
 /* ---------------------------------------------------------- */
 /* ---------------------------------------------------------- */
@@ -62,6 +63,15 @@ DROP FUNCTION IF EXISTS getMissingItemAmount;
 USE casedb; /* UPDATED 2024-01-24 */
 
 /* --- 01 CREATE TABLES --- */
+
+CREATE TABLE IF NOT EXISTS City (
+    id              INTEGER                NOT NULL AUTO_INCREMENT,
+    name            VARCHAR(200)           NOT NULL UNIQUE, 
+    established     DATE                   NOT NULL, 
+    averageTemp     DECIMAL(3, 1)          NOT NULL DEFAULT 0, 
+
+    PRIMARY KEY (id)    
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS Category (
     id              INTEGER                 NOT NULL AUTO_INCREMENT,
@@ -919,6 +929,24 @@ DELIMITER ;
 USE casedb; /* UPDATED 2024-02-26 */
 
 /* INSERTS */
+
+/* --- Insert: City --- */
+INSERT INTO City(name, established, averageTemp) VALUES 
+    ('Helsinki', '1550-06-12', 5.3),
+    ('Espoo', '1458-01-01', 4.7),
+    ('Tampere', '1779-10-01', 4.6),
+    ('Vantaa', '1974-01-01', 5.0),
+    ('Oulu', '1605-04-08', 2.7),
+    ('Turku', '1229-06-23', 6.1),
+    ('Jyväskylä', '1837-03-22', 3.5),
+    ('Lahti', '1905-11-01', 4.3),
+    ('Kuopio', '1775-11-17', 3.1),
+    ('Rovaniemi', '1929-05-01', 0.8),
+    ('Saint Petersburg', '1703-05-27', 4.8),
+    ('Moscow', '1147-04-04', 5.8),
+    ('Novosibirsk', '1893-05-20', 0.9),
+    ('Yekaterinburg', '1723-11-18', 2.0),
+    ('Kazan', '1005-08-01', 3.8);
 
 /* --- Insert: Category --- */
 INSERT INTO Category(name, description, budgetLimit, isActive) VALUES

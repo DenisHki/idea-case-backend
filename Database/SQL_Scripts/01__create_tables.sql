@@ -2,6 +2,15 @@ USE casedb; /* UPDATED 2024-01-24 */
 
 /* --- 01 CREATE TABLES --- */
 
+CREATE TABLE IF NOT EXISTS City (
+    id              INTEGER                NOT NULL AUTO_INCREMENT,
+    name            VARCHAR(200)           NOT NULL UNIQUE, 
+    established     DATE                   NOT NULL, 
+    averageTemp     DECIMAL(3, 1)          NOT NULL DEFAULT 0, 
+
+    PRIMARY KEY (id)    
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS Category (
     id              INTEGER                 NOT NULL AUTO_INCREMENT,
     name            VARCHAR(255)            NOT NULL UNIQUE,
