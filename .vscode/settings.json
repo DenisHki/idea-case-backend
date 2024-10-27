@@ -2,11 +2,11 @@
   "rest-client.environmentVariables": {
 
     "$shared": {
-      "host":"http://localhost:8764/api"
+      "host":"http://localhost:4678/api"
     },
 
     "adminEnv": {
-      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAxLCJlbWFpbCI6ImFkbWluIiwiaXNBZG1pbiI6MSwiaXNQbGFubmVyIjowLCJpc1N0YXRpc3QiOjAsImlhdCI6MTcxMjczNzQ1MSwiZXhwIjoxNzEyODIzODUxfQ.281Jvy_j0oM8LKj-K1DKsNL1fQY6iW1qhNvxqgz2zVA"
+      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAxLCJlbWFpbCI6ImFkbWluIiwiaXNBZG1pbiI6MSwiaXNQbGFubmVyIjowLCJpc1N0YXRpc3QiOjAsImlhdCI6MTczMDA2Mzg5MiwiZXhwIjoxNzMwMTUwMjkyfQ.KfMY50oBX1a19GwdZDFtkQQyedbkeD2_hlldjZVqiDQ"
     },
     "plannerEnv": {
       "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAyLCJlbWFpbCI6InBsYW5uZXIiLCJpc0FkbWluIjowLCJpc1BsYW5uZXIiOjEsImlzU3RhdGlzdCI6MCwiaWF0IjoxNzA3NzMxMzA5LCJleHAiOjE3MDc4MTc3MDl9.1V6y7sJc6Db_VGn2lrRIIUVOWMgZjykRX23P0S5HPvc"
