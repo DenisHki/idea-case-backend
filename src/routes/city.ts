@@ -1,41 +1,35 @@
 import express, { Request, Response } from 'express';
-import { admin } from '../authorization/admin.js';
-import { planner } from '../authorization/planner.js';
-import { roleChecker } from '../authorization/roleChecker.js';
-import { statist } from '../authorization/statist.js';
-import { authenticator } from '../authorization/userValidation.js';
 import db_knex from '../db/index_knex.js';
 import {
   dbErrorHandler,
   requestErrorHandler,
   successHandler,
 } from '../responseHandler/index.js';
+import {
+  validateCityId,
+  validateCityPost,
+  validateCityPut,
+  validateEstablishedDate,
+} from '../validationHandler/city.js';
+import { validate } from '../validationHandler/index.js';
 
 const city = express.Router();
 
 // get all cities:
-city.get(
-  '/',
-  //[authenticator, admin, planner, statist, roleChecker],
-  (req: Request, res: Response) => {
-    db_knex('City')
-      .select('id', 'name', 'established', 'averageTemp')
-      .orderBy('name', 'asc')
-      .then((data) => {
-        successHandler(req, res, data, 'GetCityData succesful - City');
-      })
-      .catch((err) => {
-        requestErrorHandler(
-          req,
-          res,
-          `${err} Oops! Nothing came through - City`,
-        );
-      });
-  },
-);
+city.get('/', [validate], (req: Request, res: Response) => {
+  db_knex('City')
+    .select('id', 'name', 'established', 'averageTemp')
+    .orderBy('name', 'asc')
+    .then((data) => {
+      successHandler(req, res, data, 'GetCityData succesful - City');
+    })
+    .catch((err) => {
+      requestErrorHandler(req, res, `${err} Oops! Nothing came through - City`);
+    });
+});
 
 // get city by id:
-city.get('/:id', (req: Request, res: Response) => {
+city.get('/:id', validateCityId, [validate], (req: Request, res: Response) => {
   db_knex('City')
     .select()
     .where('id', req.params.id)
@@ -58,7 +52,7 @@ city.get('/:id', (req: Request, res: Response) => {
 });
 
 // add city:
-city.post('/', (req: Request, res: Response) => {
+city.post('/', validateCityPost, [validate], (req: Request, res: Response) => {
   db_knex('City')
     .insert(req.body)
     .into('City')
@@ -86,7 +80,7 @@ city.post('/', (req: Request, res: Response) => {
 });
 
 // update city
-city.put('/', (req: Request, res: Response) => {
+city.put('/', validateCityPut, [validate], (req: Request, res: Response) => {
   db_knex('City')
     .where('id', req.body.id)
     .update(req.body)
@@ -103,26 +97,31 @@ city.put('/', (req: Request, res: Response) => {
 });
 
 // delete city by id:
-city.delete('/:id', (req: Request, res: Response) => {
-  db_knex('City')
-    .where('id', req.params.id)
-    .del()
-    .then((rowsAffected) => {
-      if (rowsAffected === 1) {
-        successHandler(
-          req,
-          res,
-          rowsAffected,
-          `Delete succesful! Count of deleted rows: ${rowsAffected}`,
-        );
-      } else {
-        requestErrorHandler(req, res, `Invalid number id: ${req.params.id}`);
-      }
-    })
-    .catch((error) => {
-      dbErrorHandler(req, res, error, 'Error');
-    });
-});
+city.delete(
+  '/:id',
+  validateCityId,
+  [validate],
+  (req: Request, res: Response) => {
+    db_knex('City')
+      .where('id', req.params.id)
+      .del()
+      .then((rowsAffected) => {
+        if (rowsAffected === 1) {
+          successHandler(
+            req,
+            res,
+            rowsAffected,
+            `Delete succesful! Count of deleted rows: ${rowsAffected}`,
+          );
+        } else {
+          requestErrorHandler(req, res, `Invalid number id: ${req.params.id}`);
+        }
+      })
+      .catch((error) => {
+        dbErrorHandler(req, res, error, 'Error');
+      });
+  },
+);
 
 // get city with "burg" in their name
 city.get('/search/burg', (req: Request, res: Response) => {
@@ -144,7 +143,7 @@ city.get('/search/burg', (req: Request, res: Response) => {
 });
 
 // get cities matching search text
-city.post('/search', (req: Request, res: Response) => {
+city.post('/search', validate, (req: Request, res: Response) => {
   db_knex('City')
     .select('id', 'name', 'established', 'averageTemp')
     .where('name', 'like', `%${req.body.searchText}%`)
@@ -163,22 +162,31 @@ city.post('/search', (req: Request, res: Response) => {
 });
 
 // get cities established before a certain date
-city.post('/established-before', (req: Request, res: Response) => {
-  db_knex('City')
-    .select('id', 'name', 'established', 'averageTemp')
-    .where('established', '<', req.body.established)
-    .orderBy('established', 'asc')
-    .then((data) => {
-      successHandler(
-        req,
-        res,
-        data,
-        'Cities established before the specified date retrieved successfully.',
-      );
-    })
-    .catch((err) => {
-      requestErrorHandler(req, res, `${err} Oops! Could not retrieve cities.`);
-    });
-});
+city.post(
+  '/established-before',
+  validateEstablishedDate,
+  [validate],
+  (req: Request, res: Response) => {
+    db_knex('City')
+      .select('id', 'name', 'established', 'averageTemp')
+      .where('established', '<', req.body.established)
+      .orderBy('established', 'asc')
+      .then((data) => {
+        successHandler(
+          req,
+          res,
+          data,
+          'Cities established before the specified date retrieved successfully.',
+        );
+      })
+      .catch((err) => {
+        requestErrorHandler(
+          req,
+          res,
+          `${err} Oops! Could not retrieve cities.`,
+        );
+      });
+  },
+);
 
 export default city;
