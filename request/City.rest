@@ -11,10 +11,10 @@ Authorization: Basic {{token}}
 
 ### Initial setup: Set the nextId after Testdata Reset 
 ### It should come after the last id in test data 
-@nextId=18
+@nextId=19
 
 ### 2. Get one by known id (use City id that is known to exist) 
-GET {{host}}/city/1 
+GET {{host}}/city/19 
 Authorization: Basic {{token}}
 
 ### 3. Create new City (Assume that the created City gets nextId or should be replaced with a returned ID to continue with the test) 

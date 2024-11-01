@@ -19,6 +19,13 @@ export type User = {
   //[key in RolePropertyName]: RoleRequired;
 };
 
+export interface City {
+  id: number;
+  name: string;
+  established: Date;
+  averageTemp: number;
+}
+
 export interface DepartmentPlanner {
   userId: number;
   departmentId: number;
