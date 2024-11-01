@@ -14,7 +14,7 @@ Authorization: Basic {{token}}
 @nextId=19
 
 ### 2. Get one by known id (use City id that is known to exist) 
-GET {{host}}/city/19 
+GET {{host}}/city/19
 Authorization: Basic {{token}}
 
 ### 3. Create new City (Assume that the created City gets nextId or should be replaced with a returned ID to continue with the test) 

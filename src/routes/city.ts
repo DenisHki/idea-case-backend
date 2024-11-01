@@ -51,12 +51,20 @@ city.get(
       .select()
       .where('id', req.params.id)
       .then((data) => {
-        successHandler(
-          req,
-          res,
-          data,
-          'Successfully read the department by id from database',
-        );
+        if (data.length === 1) {
+          successHandler(
+            req,
+            res,
+            data,
+            'Successfully read the department by id from database',
+          );
+        } else {
+          requestErrorHandler(
+            req,
+            res,
+            `Non-existing city id: ${req.params.id}`,
+          );
+        }
       })
       .catch((err) => {
         dbErrorHandler(
